@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f4a63">
+<title>Szachy: plan na pierwszy tydzień</title>
+<style>
+:root{
+  --bg:#eef1f4; --card:#ffffff; --ink:#1d2b3a; --muted:#5d6b7a;
+  --sq-dark:#5b7a99; --sq-light:#dfe6ed; --accent:#d9981e; --done:#2f7d5b;
+  --line:#d3dbe3; --today:#fff6e0;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111a23; --card:#1a2733; --ink:#e8eef4; --muted:#93a3b3;
+    --sq-dark:#3f5d7a; --sq-light:#2a3d4f; --accent:#f0b244; --done:#4cc08f;
+    --line:#2c3d4d; --today:#2b2a1e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111a23; --card:#1a2733; --ink:#e8eef4; --muted:#93a3b3;
+  --sq-dark:#3f5d7a; --sq-light:#2a3d4f; --accent:#f0b244; --done:#4cc08f;
+  --line:#2c3d4d; --today:#2b2a1e;
+}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.board-strip{height:28px;background:
+  conic-gradient(var(--sq-dark) 25%,var(--sq-light) 0 50%,var(--sq-dark) 0 75%,var(--sq-light) 0) 0 0/56px 56px}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 130px}
+header h1{font-family:var(--serif);font-size:clamp(1.7rem,6vw,2.4rem);margin:8px 0 4px;line-height:1.15}
+header p{margin:0;color:var(--muted)}
+.summary{margin:20px 0 8px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.summary-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px}
+.summary-top strong{font-family:var(--serif);font-size:1.25rem}
+.bar{height:12px;border-radius:6px;background:var(--sq-light);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.dots{display:flex;gap:6px;margin-top:12px}
+.dots span{flex:1;text-align:center;font-size:1.35rem;line-height:1;padding:6px 0;border-radius:8px;
+  background:var(--sq-light);color:var(--muted);opacity:.7}
+.dots span.full{background:var(--done);color:#fff;opacity:1}
+.dots span.now{outline:2px solid var(--accent);outline-offset:1px}
+.day{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.day.today{border-color:var(--accent);background:linear-gradient(var(--today),var(--card) 90px)}
+.day-head{display:flex;align-items:center;gap:12px;padding:14px 16px 8px}
+.piece{font-size:2.1rem;line-height:1;width:44px;text-align:center;color:var(--sq-dark)}
+.day.complete .piece{color:var(--done)}
+.day-head h2{font-family:var(--serif);font-size:1.2rem;margin:0;line-height:1.2}
+.day-head small{color:var(--muted)}
+.badge{margin-left:auto;font-size:.8rem;padding:2px 10px;border-radius:99px;background:var(--sq-light);color:var(--muted);white-space:nowrap}
+.day.today .badge{background:var(--accent);color:#1d2b3a}
+.day.complete .badge{background:var(--done);color:#fff}
+ul{list-style:none;margin:0;padding:4px 8px 12px}
+[hidden]{display:none!important}
+.day li{display:flex;align-items:flex-start;gap:4px}
+.day li label{flex:1;display:flex;gap:12px;align-items:flex-start;padding:10px 8px;border-radius:10px;cursor:pointer;min-height:44px}
+li label:hover{background:var(--sq-light)}
+.start{flex:none;margin:6px 4px 0 0;min-height:40px;padding:6px 14px;background:var(--sq-dark);color:#fff;border-color:var(--sq-dark);font-weight:600;white-space:nowrap}
+.start:hover{background:var(--sq-dark);filter:brightness(1.12)}
+.tbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);
+  box-shadow:0 -6px 20px rgba(0,0,0,.15);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))}
+.tfill{position:absolute;left:0;top:0;height:4px;width:0;background:var(--accent);transition:width .5s linear}
+.tin{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.tname{flex:1;min-width:0;font-size:.88rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tclock{font-family:var(--serif);font-size:1.7rem;font-variant-numeric:tabular-nums}
+.alarm{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px}
+.abox{background:var(--card);border-radius:16px;padding:22px;max-width:420px;width:100%;border:2px solid var(--accent)}
+.abox h2{font-family:var(--serif);margin:0 0 6px}
+.abox p{margin:0 0 4px;color:var(--muted)}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;
+  border:2px solid var(--sq-dark);border-radius:6px;background:transparent;display:grid;place-content:center;cursor:pointer}
+input[type=checkbox]::after{content:"";width:12px;height:7px;border-left:3px solid #fff;border-bottom:3px solid #fff;
+  transform:rotate(-45deg) scale(0);margin-top:-2px;transition:transform .12s ease}
+input[type=checkbox]:checked{background:var(--done);border-color:var(--done)}
+input[type=checkbox]:checked::after{transform:rotate(-45deg) scale(1)}
+input[type=checkbox]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.txt{flex:1}
+.txt b{font-weight:600}
+li input:checked ~ .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.txt a{color:var(--sq-dark);font-size:.88rem;text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-top:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .txt a{color:#8fb4d8}}
+:root[data-theme="dark"] .txt a{color:#8fb4d8}
+.tip{margin:0 16px 14px;padding:10px 12px;border-left:4px solid var(--sq-dark);background:var(--sq-light);border-radius:0 8px 8px 0;font-size:.9rem}
+.rules{margin-top:22px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.rules h2{font-family:var(--serif);margin:0 0 8px;font-size:1.15rem}
+.rules ol{margin:0;padding-left:20px}
+.rules li{padding:3px 0}
+.actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+button{font:inherit;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;min-height:44px}
+button:hover{background:var(--sq-light)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+footer{margin-top:18px;color:var(--muted);font-size:.85rem}
+.nav{position:sticky;top:0;z-index:15;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-in{max-width:720px;margin:0 auto;display:flex;gap:8px;padding:8px 16px}
+.nav button{flex:1;font-weight:600}
+.nav button.on,.chips button.on{background:var(--sq-dark);color:#fff;border-color:var(--sq-dark)}
+.chips{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
+.chips button{padding:6px 14px;min-height:40px}
+.op{margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.op summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:14px 16px;cursor:pointer;list-style:none}
+.op summary::-webkit-details-marker{display:none}
+.op summary b{font-family:var(--serif);font-size:1.12rem}
+.sq{width:14px;height:14px;border-radius:3px;border:2px solid var(--sq-dark);flex:none}
+.sq.b{background:#fff}.sq.c{background:var(--sq-dark)}
+.mv{flex-basis:100%;color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums}
+.lv{margin-left:auto;font-size:.78rem;padding:2px 10px;border-radius:99px;background:var(--sq-light);color:var(--muted)}
+.opb{padding:0 16px 14px}
+.opb h3{font-family:var(--serif);font-size:1rem;margin:12px 0 4px}
+.opb ul{list-style:disc;padding:0 0 0 20px;margin:0}
+.opb li{padding:2px 0}
+.know{display:flex;gap:10px;align-items:center;margin-top:12px;cursor:pointer}
+.box{margin-top:18px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.box h2{font-family:var(--serif);margin:0 0 8px;font-size:1.15rem}
+.box ul,.box ol{margin:0;padding-left:20px;list-style:revert}
+.box li{padding:3px 0}
+.lead{color:var(--muted);margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="board-strip" aria-hidden="true"></div>
+<nav class="nav" aria-label="Sekcje"><div class="nav-in">
+  <button type="button" data-v="plan" class="on">Harmonogram</button>
+  <button type="button" data-v="open">Debiuty</button>
+</div></nav>
+<main class="wrap">
+  <div id="view-plan">
+  <header>
+    <h1>Szachy: pierwszy tydzień</h1>
+    <p>Zaznaczaj zadania w ciągu dnia. Postęp zapisuje się w tej przeglądarce.</p>
+  </header>
+
+  <section class="summary" aria-label="Postęp tygodnia">
+    <div class="summary-top"><strong id="sumText">0 z 0 zadań</strong><span id="sumPct">0%</span></div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="barFill"></i></div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <div id="days"></div>
+
+  <section class="rules">
+    <h2>Zasady na ten tydzień</h2>
+    <ol>
+      <li>Debiut ma pomóc zrozumieć plan, nie wkuć warianty. Wystarczy znać pierwsze 4-5 ruchów jednego debiutu.</li>
+      <li>Rozwijaj skoczki i gońce, walcz o centrum, rób wcześnie roszadę.</li>
+      <li>Po każdej partii włącz analizę komputerową i znajdź jeden błąd, którego nie powtórzysz.</li>
+      <li>Przed każdym ruchem sprawdź: co zagraża mojej figurze i co mogę zbić?</li>
+      <li>Co godzinę zrób 10 minut przerwy. Po kilku godzinach szachów koncentracja spada, a analiza i zadania wymagają świeżej głowy.</li>
+      <li>Przycisk ▶ przy zadaniu uruchamia odliczanie i otwiera Lichess. Na telefonie ustaw dla pewności także zwykły budzik, bo przeglądarka może wstrzymać stronę w tle.</li>
+      <li>Partie nierankingowe (Casual) nie zmieniają ratingu. Przy tworzeniu partii wybierz tryb „Casual", żeby spokojnie próbować debiutów i uczyć się na błędach.</li>
+      <li>Z AI zacznij od poziomu 1-2. Gdy wygrywasz mniej więcej co drugą partię, podnieś poziom o jeden.</li>
+    </ol>
+  </section>
+
+  <div class="actions">
+    <button id="reset" type="button">Wyzeruj tydzień</button>
+    <button id="theme" type="button">Zmień motyw</button>
+  </div>
+  <footer>Kolejny tydzień: wróć do Claude z wynikami i dopasujemy plan.</footer>
+</div>
+  <div id="view-open" hidden>
+    <header>
+      <h1>Debiuty</h1>
+      <p>Notacja: K król, H hetman, W wieża, G goniec, S skoczek, O-O roszada krótka. Kliknij debiut, żeby go rozwinąć.</p>
+    </header>
+    <section class="box">
+      <h2>Jak uczyć się debiutów</h2>
+      <ol>
+        <li>Wybierz jeden debiut białymi i po jednej odpowiedzi czarnymi na 1.e4 i na 1.d4.</li>
+        <li>Zagraj nimi co najmniej 20 partii, zanim zmienisz wybór.</li>
+        <li>Po każdej partii sprawdź w analizie, w którym ruchu wyszedłeś z teorii i dlaczego.</li>
+        <li>Znaj pierwsze 6-8 ruchów oraz plan gry. Nie wkuwaj wariantów, na które nikt nie gra.</li>
+      </ol>
+    </section>
+    <section class="box">
+      <h2>Zasady debiutu</h2>
+      <ul>
+        <li>Walcz o centrum (pola e4, d4, e5, d5).</li>
+        <li>Rozwijaj figury: skoczki i gońce przed hetmanem i wieżami.</li>
+        <li>Nie ruszaj tą samą figurą dwa razy bez powodu i nie wyprowadzaj hetmana za wcześnie.</li>
+        <li>Zrób roszadę do około 10. ruchu.</li>
+        <li>Przed każdym ruchem sprawdź, co grozi tobie i co grozi przeciwnikowi.</li>
+      </ul>
+    </section>
+    <div class="chips" role="group" aria-label="Filtr">
+      <button type="button" data-f="all" class="on">Wszystkie</button>
+      <button type="button" data-f="b">Białe</button>
+      <button type="button" data-f="c">Czarne</button>
+    </div>
+    <div id="oplist"></div>
+    <section class="box">
+      <h2>Pułapki początkujących</h2>
+      <ul>
+        <li><b>Mat szewczyka:</b> 1.e4 e5 2.Gc4 Sc6 3.Hh5? Sf6?? 4.Hxf7#. Obrona: 3...g6 (wygania hetmana) albo 3...Hf6.</li>
+        <li><b>Pułapka Legala:</b> 1.e4 e5 2.Sf3 d6 3.Gc4 Sc6 4.Sc3 Gg4 5.h3 Gh5? 6.Sxe5! Gxd1 7.Gxf7+ Ke7 8.Sd5#.</li>
+        <li><b>Pułapka w Petrowa:</b> 1.e4 e5 2.Sf3 Sf6 3.Sxe5 Sxe4? 4.He2 Sf6?? 5.Sc6+ wygrywa hetmana.</li>
+      </ul>
+    </section>
+    <section class="box">
+      <h2>Słowniczek</h2>
+      <ul>
+        <li><b>Gambit:</b> debiut z ofiarą piona dla szybszego rozwoju lub centrum.</li>
+        <li><b>Rozwój:</b> wyprowadzanie figur z pozycji wyjściowej na aktywne pola.</li>
+        <li><b>Tempo:</b> jeden ruch. Strata tempa to ruch, który nie poprawia pozycji.</li>
+        <li><b>Ruch książkowy:</b> ruch zgodny z teorią debiutu.</li>
+        <li><b>Łańcuch pionów:</b> ciąg pionów wspierających się po przekątnej.</li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<div id="tbar" class="tbar" hidden>
+  <div class="tfill" id="tfill"></div>
+  <div class="tin">
+    <div class="tname" id="tname"></div>
+    <div class="tclock" id="tclock">00:00</div>
+    <button id="tpause" type="button">Pauza</button>
+    <button id="tstop" type="button">Stop</button>
+  </div>
+</div>
+<div id="alarm" class="alarm" role="alertdialog" aria-live="assertive" hidden>
+  <div class="abox">
+    <h2>Czas minął</h2>
+    <p id="aname"></p>
+    <div class="actions">
+      <button id="adone" type="button">Zaznacz jako zrobione</button>
+      <button id="aclose" type="button">Zamknij</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var L = "https://lichess.org";
+  var AI = L+"/?any#ai";
+  var DAYS = [
+    {n:"Poniedziałek", p:"♟", f:"Zasady", m:180, t:[
+      ["Lekcje podstawowe, 45 min", L+"/learn"],
+      ["Practice: matowanie, 30 min", L+"/practice"],
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Dwie partie z AI na poziomie 1-2", AI],
+      ["Analiza obu partii z AI", ""],
+      ["Trener współrzędnych, 20 min", L+"/training/coordinate"]
+    ], tip:"Nie spiesz się z zadaniami. Zanim ruszysz, wskaż wszystkie bicia i szachy."},
+    {n:"Wtorek", p:"♞", f:"Matowanie i taktyka", m:180, t:[
+      ["Practice: matowanie hetmanem i wieżą, 30 min", L+"/practice"],
+      ["Practice: podstawowe końcówki, 20 min", L+"/practice"],
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Partia z AI na poziomie 2-3", AI],
+      ["Partia nierankingowa (Casual) z człowiekiem, tempo 15+10", L+"/"],
+      ["Analiza obu partii, 25 min", ""],
+      ["Trener współrzędnych, 10 min", L+"/training/coordinate"]
+    ]},
+    {n:"Środa", p:"♝", f:"Partie z ludźmi", m:180, t:[
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Puzzle Storm, 15 min", L+"/storm"],
+      ["Dwie partie z człowiekiem, tempo 15+10", L+"/"],
+      ["Analiza komputerowa obu partii: znajdź największy błąd", ""],
+      ["Partia z AI na poziomie 3, bez cofania ruchów", AI]
+    ], tip:"Dłuższe tempo daje czas na myślenie. Na razie ignoruj wynik."},
+    {n:"Czwartek", p:"♜", f:"Debiut białymi", m:180, t:[
+      ["Partia włoska: 1.e4 e5 2.Sf3 Sc6 3.Gc4, Opening Explorer, 30 min", L+"/opening"],
+      ["Study o debiucie, 30 min", L+"/study"],
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Dwie partie z AI białymi: zagraj debiut do końca", AI],
+      ["Partia nierankingowa z człowiekiem, tempo 15+10", L+"/"],
+      ["Analiza: w którym ruchu wyszedłeś z debiutu?", ""]
+    ]},
+    {n:"Piątek", p:"♛", f:"Debiut w praktyce", m:180, t:[
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Dwie partie nierankingowe z człowiekiem: ćwicz debiut", L+"/"],
+      ["Analiza obu partii, 30 min", ""],
+      ["Czarne: jedna odpowiedź na 1.e4, Study i Explorer, 30 min", L+"/study"],
+      ["Partia z AI czarnymi", AI]
+    ]},
+    {n:"Sobota", p:"♚", f:"Dzień partii", m:180, t:[
+      ["Puzzle Storm i zadania jednego motywu, 40 min", L+"/storm"],
+      ["Trzy partie z człowiekiem, tempo 15+10", L+"/"],
+      ["Analiza trzech partii, 40 min", ""],
+      ["Partia z AI o jeden poziom wyżej niż w środę", AI]
+    ]},
+    {n:"Niedziela", p:"♔", f:"Powtórka i luz", m:135, t:[
+      ["Powtórz błędy z tygodnia, 30 min", ""],
+      ["20 zadań taktycznych, 30 min", L+"/training"],
+      ["Trener współrzędnych, 15 min", L+"/training/coordinate"],
+      ["Luźna partia nierankingowa z człowiekiem", L+"/"],
+      ["Partia z AI na wybranym poziomie", AI]
+    ], tip:"Lżejszy dzień na odpoczynek. Zapisz jedną rzecz, której nauczyłeś się w tym tygodniu."}
+  ];
+  var KEY = "szachy-tydzien-1-v3";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ state = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+
+  // JS getDay: 0=nd..6=sb ; our index: 0=pn..6=nd
+  function fmt(m){ var h=Math.floor(m/60), r=m%60; return h ? h+" h"+(r?" "+r+" min":"") : m+" min"; }
+  var todayIdx = (new Date().getDay() + 6) % 7;
+
+  var daysEl = document.getElementById("days");
+  var dotsEl = document.getElementById("dots");
+  var html = "", dots = "";
+  DAYS.forEach(function(d, i){
+    html += '<section class="day" id="day'+i+'" aria-labelledby="h'+i+'"><div class="day-head">'
+      + '<div class="piece" aria-hidden="true">'+d.p+'</div>'
+      + '<div><h2 id="h'+i+'">'+d.n+': '+d.f+'</h2><small>około '+fmt(d.m)+'</small></div>'
+      + '<span class="badge" id="b'+i+'"></span></div><ul>';
+    d.t.forEach(function(t, j){
+      var id = i+"-"+j;
+      var mm = t[0].match(/(\d+)\s*min/), mins = mm ? +mm[1] : 0;
+      html += '<li><label><input type="checkbox" data-id="'+id+'"'+(state[id]?' checked':'')+'>'
+        + '<span class="txt">'+t[0]
+        + (t[1] ? '<br><a href="'+t[1]+'" target="_blank" rel="noopener">Otwórz na Lichess</a>' : '')
+        + '</span></label>'
+        + (mins ? '<button type="button" class="start" data-day="'+i+'" data-task="'+j+'" data-mins="'+mins+'" aria-label="Start timera, '+mins+' minut">&#9654; '+mins+' min</button>' : '')
+        + '</li>';
+    });
+    html += '</ul>' + (d.tip ? '<p class="tip">'+d.tip+'</p>' : '') + '</section>';
+    dots += '<span id="dot'+i+'" title="'+d.n+'">'+d.p+'</span>';
+  });
+  daysEl.innerHTML = html;
+  dotsEl.innerHTML = dots;
+
+  function refresh(){
+    var total = 0, done = 0;
+    DAYS.forEach(function(d, i){
+      var dd = 0;
+      d.t.forEach(function(t, j){ if(state[i+"-"+j]) dd++; });
+      total += d.t.length; done += dd;
+      var full = dd === d.t.length;
+      var sec = document.getElementById("day"+i);
+      sec.classList.toggle("complete", full);
+      sec.classList.toggle("today", i === todayIdx);
+      var badge = document.getElementById("b"+i);
+      badge.textContent = full ? "Zrobione" : (i === todayIdx ? "Dziś, " : "") + dd + "/" + d.t.length;
+      var dot = document.getElementById("dot"+i);
+      dot.classList.toggle("full", full);
+      dot.classList.toggle("now", i === todayIdx);
+    });
+    var pct = total ? Math.round(done*100/total) : 0;
+    document.getElementById("sumText").textContent = done + " z " + total + " zadań";
+    document.getElementById("sumPct").textContent = pct + "%";
+    document.getElementById("barFill").style.width = pct + "%";
+    document.getElementById("bar").setAttribute("aria-valuenow", pct);
+  }
+
+  daysEl.addEventListener("change", function(e){
+    var el = e.target;
+    if(el && el.dataset && el.dataset.id){
+      if(el.checked) state[el.dataset.id] = 1; else delete state[el.dataset.id];
+      save(); refresh();
+    }
+  });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    if(!confirm("Wyzerować wszystkie zaznaczenia w tym tygodniu?")) return;
+    state = {}; save();
+    document.querySelectorAll("input[type=checkbox]").forEach(function(c){ c.checked = false; });
+    refresh();
+  });
+
+  document.getElementById("theme").addEventListener("click", function(){
+    var r = document.documentElement;
+    var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur = r.getAttribute("data-theme") || (dark ? "dark" : "light");
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
+
+  refresh();
+  // ---- Timer ----
+  var TKEY = "szachy-timer", timer = null, actx = null, pendingId = null, baseTitle = document.title;
+  function $(id){ return document.getElementById(id); }
+  function saveTimer(){ try { if(timer) localStorage.setItem(TKEY, JSON.stringify(timer)); else localStorage.removeItem(TKEY); } catch(e){} }
+  try { timer = JSON.parse(localStorage.getItem(TKEY) || "null"); } catch(e){ timer = null; }
+  function mmss(ms){ var s = Math.max(0, Math.ceil(ms/1000)), m = Math.floor(s/60); s = s % 60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+  function beep(){
+    try {
+      if(!actx) return;
+      if(actx.state === "suspended") actx.resume();
+      for(var k=0;k<3;k++){
+        var o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + k*0.45;
+        o.frequency.value = 880; o.connect(g); g.connect(actx.destination);
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(0.4, t0+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0+0.35);
+        o.start(t0); o.stop(t0+0.4);
+      }
+    } catch(e){}
+  }
+  function drawTimer(){
+    var bar = $("tbar");
+    if(!timer){ bar.hidden = true; document.title = baseTitle; return; }
+    var left = timer.paused ? timer.left : timer.end - Date.now();
+    bar.hidden = false;
+    $("tname").textContent = timer.name;
+    $("tclock").textContent = mmss(left);
+    $("tfill").style.width = Math.max(0, Math.min(100, 100 - left*100/(timer.total*60000))) + "%";
+    $("tpause").textContent = timer.paused ? "Wznów" : "Pauza";
+    document.title = (timer.paused ? "⏸ " : "⏱ ") + mmss(left) + " · Szachy";
+  }
+  function finish(){
+    var d = timer; timer = null; saveTimer(); drawTimer();
+    pendingId = d.id; $("aname").textContent = d.name; $("alarm").hidden = false;
+    document.title = "⏰ Koniec czasu · Szachy";
+    beep();
+    try { if(navigator.vibrate) navigator.vibrate([300,150,300,150,300]); } catch(e){}
+    try { if("Notification" in window && Notification.permission === "granted") new Notification("Czas minął", {body: d.name}); } catch(e){}
+  }
+  function tick(){
+    if(!timer) return;
+    if(!timer.paused && timer.end - Date.now() <= 0){ finish(); return; }
+    drawTimer();
+  }
+  function closeAlarm(){ $("alarm").hidden = true; document.title = baseTitle; }
+  setInterval(tick, 500);
+  document.addEventListener("visibilitychange", tick);
+
+  daysEl.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest(".start") : null;
+    if(!b) return;
+    var i = +b.dataset.day, j = +b.dataset.task, mins = +b.dataset.mins, task = DAYS[i].t[j];
+    if(timer && !confirm("Trwa już inny timer. Zastąpić go nowym?")) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(AC && !actx) actx = new AC();
+      if(actx && actx.state === "suspended") actx.resume();
+    } catch(err){}
+    try { if("Notification" in window && Notification.permission === "default") Notification.requestPermission(); } catch(err){}
+    timer = {id:i+"-"+j, name:task[0], total:mins, end:Date.now()+mins*60000, paused:false, left:0};
+    saveTimer(); drawTimer();
+    if(task[1]) window.open(task[1], "_blank", "noopener");
+  });
+  $("tpause").addEventListener("click", function(){
+    if(!timer) return;
+    if(timer.paused){ timer.end = Date.now() + timer.left; timer.paused = false; }
+    else { timer.left = timer.end - Date.now(); timer.paused = true; }
+    saveTimer(); drawTimer();
+  });
+  $("tstop").addEventListener("click", function(){
+    if(timer && confirm("Zatrzymać timer?")){ timer = null; saveTimer(); drawTimer(); }
+  });
+  $("aclose").addEventListener("click", closeAlarm);
+  $("adone").addEventListener("click", function(){
+    if(pendingId){
+      state[pendingId] = 1; save();
+      var c = document.querySelector('input[data-id="'+pendingId+'"]');
+      if(c) c.checked = true;
+      refresh();
+    }
+    closeAlarm();
+  });
+  drawTimer();
+
+
+  // ---- Debiuty ----
+  var OPEN = [
+    {n:"Partia włoska", c:"b", m:"1.e4 e5 2.Sf3 Sc6 3.Gc4", lv:"łatwy",
+     idea:"Klasyczny, prosty debiut. Goniec celuje w słaby punkt f7, a ty szybko rozwijasz figury i bezpiecznie chowasz króla.",
+     plan:["Rozwiń skoczki i gońce, zrób roszadę krótką.","Zagraj c3 i d4, żeby zająć centrum pionami.","Typowo: 3...Gc5 4.c3 Sf6 5.d4 exd4 6.cxd4 Gb4+ 7.Gd2 albo 7.Sc3."],
+     tips:["Jeśli czarne zagrają 3...Sf6 (obrona dwóch skoczków), nie spiesz się z 4.Sg5. Po 4...d5 5.exd5 czarne powinny zagrać 5...Sa5, a nie 5...Sxd5?? 6.Sxf7.","Pułapka Legala jest opisana w sekcji niżej."]},
+    {n:"Partia hiszpańska", c:"b", m:"1.e4 e5 2.Sf3 Sc6 3.Gb5", lv:"średni",
+     idea:"Stary i prestiżowy debiut. Goniec naciska na skoczka c6, który broni piona e5. Daje trwałą, pozycyjną przewagę.",
+     plan:["Typowo: 3...a6 4.Ga4 Sf6 5.O-O Ge7 6.We1 b5 7.Gb3 d6 8.c3 O-O.","Buduj centrum (c3, d4), wieża na e1, skoczek przez Sbd2-f1-g3.","Plan jest długi, więc nie szukaj szybkiego ataku."],
+     tips:["Nie bij za wcześnie: 4.Gxc6 dxc6 5.Sxe5? Hd4 widełkami odzyskuje piona.","Na początek poznaj 8-10 ruchów i idee, resztę dojdzie w partiach."]},
+    {n:"Gambit hetmański", c:"b", m:"1.d4 d5 2.c4", lv:"łatwy",
+     idea:"Biały oferuje piona c4, żeby odciągnąć piona d5 i zająć centrum. Nazwa jest myląca: czarny rzadko utrzyma piona.",
+     plan:["Po 2...dxc4 nie odzyskuj piona na siłę: zagraj 3.Sf3 albo 3.e3 i zbij na c4 gońcem.","Po 2...e6 (odrzucony): 3.Sc3 Sf6 4.Gg5 to klasyczna gra pozycyjna.","Rozwijaj Sc3, Sf3, Gf4 lub Gg5, potem roszada."],
+     tips:["Cel to centrum i rozwój, nie materiał.","Czarne: po 2...dxc4 nie broń piona za wszelką cenę, lepiej oddać go i rozwinąć figury."]},
+    {n:"System londyński", c:"b", m:"1.d4 d5 2.Sf3 Sf6 3.Gf4", lv:"łatwy",
+     idea:"Prosty system: ustawiasz figury podobnie, niezależnie od ruchów czarnych. Mało teorii, dobry na start.",
+     plan:["Ustawienie: Gf4, e3, Sf3, c3, Sbd2, Gd3, roszada.","Wyprowadź gońca c1 przed zagraniem e3.","Później możesz zagrać Se5 i szukać ataku na skrzydle królewskim."],
+     tips:["Uważaj na ...Hb6 atakującego piona b2 i na ...Sh5, które bije gońca f4.","Za każdym razem sprawdź, czy goniec f4 nie wisi."]},
+    {n:"Obrona sycylijska", c:"c", m:"1.e4 c5", lv:"trudny",
+     idea:"Najbardziej bojowa odpowiedź na 1.e4. Czarny nie kopiuje białych i walczy o przewagę kosztem asymetrii pionów.",
+     plan:["Typowo: 2.Sf3 d6 3.d4 cxd4 4.Sxd4 Sf6 5.Sc3.","Potem ...a6 (Najdorf) albo ...g6 (smok). Na początek wybierz jedno ustawienie.","Czarny często gra na skrzydle hetmańskim, a biały na królewskim."],
+     tips:["To ostra teoria. Poznaj idee, nie wkuwaj wszystkiego.","Anty-sycylijskie 2.c3 i 2.Sc3 sprawdzaj w Opening Explorer."]},
+    {n:"Obrona francuska", c:"c", m:"1.e4 e6 2.d4 d5", lv:"średni",
+     idea:"Solidna obrona z zamkniętym centrum. Czarny buduje trwały łańcuch pionów, ale jego goniec c8 bywa zamknięty.",
+     plan:["Po 3.Sc3 Sf6 4.Gg5 Ge7 albo 3...Gb4.","Po 3.e5 zagraj ...c5 i atakuj piona d4.","Zadbaj o aktywację gońca c8 i zrób roszadę."],
+     tips:["Słaby punkt to goniec c8, pomyśl, jak go uwolnić.","W wariancie wymiennym 3.exd5 exd5 gra jest prosta i równa."]},
+    {n:"Obrona Caro-Kann", c:"c", m:"1.e4 c6 2.d4 d5", lv:"łatwy",
+     idea:"Bardzo solidna obrona: czarny wspiera piona d5, a goniec c8 ma wolną drogę. Dobra dla początkujących.",
+     plan:["3.Sc3 dxe4 4.Sxe4 Gf5! wyprowadź gońca przed ...e6.","Po 3.e5 Gf5 4.Sf3 e6.","Rozwiń Sf6 i Sd7, roszada, potem ...c5 jako przełamanie."],
+     tips:["Czarny jest bezpieczny, ale gra trochę pasywniej niż w sycylijskiej.","Nie zamykaj gońca c8 ruchem ...e6 przed jego wyjściem."]},
+    {n:"Obrona Petrowa", c:"c", m:"1.e4 e5 2.Sf3 Sf6", lv:"średni",
+     idea:"Czarny kontratakuje piona e4 zamiast go bronić. Debiut solidny i symetryczny.",
+     plan:["Po 3.Sxe5 zagraj 3...d6 4.Sf3 Sxe4.","Rozwijaj figury, roszada, ...Ge7 i ...Sc6.","Po 3.Sc3 zagraj 3...Sc6."],
+     tips:["Pułapka: 3.Sxe5 Sxe4? 4.He2! Sf6?? 5.Sc6+. Po 4.He2 graj 4...He7.","Kolejność ruchów ma tu duże znaczenie."]},
+    {n:"Obrona słowiańska", c:"c", m:"1.d4 d5 2.c4 c6", lv:"średni",
+     idea:"Solidna odpowiedź na gambit hetmański. Czarny broni piona d5 pionem c6 i zachowuje swobodę gońca c8.",
+     plan:["Typowo: 3.Sf3 Sf6 4.Sc3 dxc4 5.a4 Gf5.","Wyprowadź gońca c8 przed ...e6.","Potem ...e6, ...Ge7 lub ...Gb4, roszada."],
+     tips:["Po zbiciu na c4 nie broń piona przez ...b5 bez potrzeby, lepiej rozwijaj figury."]},
+    {n:"Indyjska królewska", c:"c", m:"1.d4 Sf6 2.c4 g6 3.Sc3 Gg7 4.e4 d6", lv:"trudny",
+     idea:"Czarny pozwala białym zbudować duże centrum, a potem je atakuje (...e5 lub ...c5). Gra ostra, ale wymaga wiedzy.",
+     plan:["Ustawienie: ...Sf6, ...g6, ...Gg7, ...d6, ...O-O.","Po 5.Sf3 O-O 6.Ge2 e5 uderz w centrum.","Gdy centrum się zamknie, atakuj pionami na skrzydle królewskim (...f5)."],
+     tips:["Dla początkującego trudna. Jeśli wolisz prostotę, wybierz słowiańską.","Pilnuj bezpieczeństwa króla, biały często gra ostro."]}
+  ];
+  var OKEY = "szachy-znam", know = {}, filt = "all";
+  try { know = JSON.parse(localStorage.getItem(OKEY) || "{}") || {}; } catch(e){ know = {}; }
+  function li(a){ var h = ""; a.forEach(function(x){ h += "<li>" + x + "</li>"; }); return h; }
+  function drawOpen(){
+    var h = "";
+    OPEN.forEach(function(o, i){
+      if(filt !== "all" && o.c !== filt) return;
+      h += '<details class="op"><summary><span class="sq '+o.c+'" title="'+(o.c==="b"?"Białe":"Czarne")+'"></span><b>'+o.n
+        + '</b><span class="lv">'+o.lv+'</span><span class="mv">'+o.m+'</span></summary><div class="opb"><p>'+o.idea+'</p>'
+        + '<h3>Plan gry</h3><ul>'+li(o.plan)+'</ul><h3>Uwagi i pułapki</h3><ul>'+li(o.tips)+'</ul>'
+        + '<label class="know"><input type="checkbox" data-o="'+i+'"'+(know[i]?' checked':'')+'> Znam ten debiut</label></div></details>';
+    });
+    $("oplist").innerHTML = h;
+  }
+  $("oplist").addEventListener("change", function(e){
+    var el = e.target;
+    if(el && el.dataset && el.dataset.o){
+      if(el.checked) know[el.dataset.o] = 1; else delete know[el.dataset.o];
+      try { localStorage.setItem(OKEY, JSON.stringify(know)); } catch(err){}
+    }
+  });
+  document.querySelector(".chips").addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("button") : null;
+    if(!b) return;
+    filt = b.dataset.f;
+    document.querySelectorAll(".chips button").forEach(function(x){ x.classList.toggle("on", x === b); });
+    drawOpen();
+  });
+  function showView(v){
+    $("view-plan").hidden = v !== "plan";
+    $("view-open").hidden = v !== "open";
+    document.querySelectorAll(".nav button").forEach(function(b){ b.classList.toggle("on", b.dataset.v === v); });
+    try { history.replaceState(null, "", v === "open" ? "#debiuty" : "#harmonogram"); } catch(e){}
+    window.scrollTo(0, 0);
+  }
+  document.querySelector(".nav").addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("button") : null;
+    if(b) showView(b.dataset.v);
+  });
+  drawOpen();
+  if(location.hash === "#debiuty") showView("open");
+  var t = document.getElementById("day"+todayIdx);
+  if(t && todayIdx > 0){ setTimeout(function(){ t.scrollIntoView({block:"start"}); }, 50); }
+})();
+</script>
+</body>
+</html>
