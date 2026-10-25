@@ -112,6 +112,7 @@ footer{margin-top:18px;color:var(--muted);font-size:.85rem}
 .opb h3{font-family:var(--serif);font-size:1rem;margin:12px 0 4px}
 .opb ul{list-style:disc;padding:0 0 0 20px;margin:0}
 .opb li{padding:2px 0}
+.gl{display:inline-block;margin-top:12px;padding:9px 16px;border-radius:10px;background:var(--sq-dark);color:#fff!important;text-decoration:none;font-weight:600}
 .know{display:flex;gap:10px;align-items:center;margin-top:12px;cursor:pointer}
 .box{margin-top:18px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
 .box h2{font-family:var(--serif);margin:0 0 8px;font-size:1.15rem}
@@ -456,7 +457,7 @@ footer{margin-top:18px;color:var(--muted);font-size:.85rem}
 
   // ---- Debiuty ----
   var OPEN = [
-    {n:"Partia włoska", c:"b", m:"1.e4 e5 2.Sf3 Sc6 3.Gc4", lv:"łatwy",
+    {n:"Partia włoska", c:"b", guide:"partia-wloska.html", m:"1.e4 e5 2.Sf3 Sc6 3.Gc4", lv:"łatwy",
      idea:"Klasyczny, prosty debiut. Goniec celuje w słaby punkt f7, a ty szybko rozwijasz figury i bezpiecznie chowasz króla.",
      plan:["Rozwiń skoczki i gońce, zrób roszadę krótką.","Zagraj c3 i d4, żeby zająć centrum pionami.","Typowo: 3...Gc5 4.c3 Sf6 5.d4 exd4 6.cxd4 Gb4+ 7.Gd2 albo 7.Sc3."],
      tips:["Jeśli czarne zagrają 3...Sf6 (obrona dwóch skoczków), nie spiesz się z 4.Sg5. Po 4...d5 5.exd5 czarne powinny zagrać 5...Sa5, a nie 5...Sxd5?? 6.Sxf7.","Pułapka Legala jest opisana w sekcji niżej."]},
@@ -507,6 +508,7 @@ footer{margin-top:18px;color:var(--muted);font-size:.85rem}
       h += '<details class="op"><summary><span class="sq '+o.c+'" title="'+(o.c==="b"?"Białe":"Czarne")+'"></span><b>'+o.n
         + '</b><span class="lv">'+o.lv+'</span><span class="mv">'+o.m+'</span></summary><div class="opb"><p>'+o.idea+'</p>'
         + '<h3>Plan gry</h3><ul>'+li(o.plan)+'</ul><h3>Uwagi i pułapki</h3><ul>'+li(o.tips)+'</ul>'
+        + (o.guide ? '<a class="gl" href="'+o.guide+'">Otwórz pełny poradnik z ilustracjami</a>' : '')
         + '<label class="know"><input type="checkbox" data-o="'+i+'"'+(know[i]?' checked':'')+'> Znam ten debiut</label></div></details>';
     });
     $("oplist").innerHTML = h;

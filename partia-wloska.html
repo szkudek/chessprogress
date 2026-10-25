@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f4a63">
+<title>Partia włoska: poradnik z ilustracjami</title>
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#1d2b3a;--muted:#5d6b7a;--sq-dark:#5b7a99;--sq-light:#dfe6ed;--accent:#d9981e;--done:#2f7d5b;--line:#d3dbe3;--bl:#e3e9ef;--bd:#6c8cab;--bad:#b3402f;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#111a23;--card:#1a2733;--ink:#e8eef4;--muted:#93a3b3;--sq-dark:#3f5d7a;--sq-light:#2a3d4f;--accent:#f0b244;--done:#4cc08f;--line:#2c3d4d;--bl:#8aa0b5;--bd:#46627d;--bad:#e5806f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.strip{height:28px;background:conic-gradient(var(--sq-dark) 25%,var(--sq-light) 0 50%,var(--sq-dark) 0 75%,var(--sq-light) 0) 0 0/56px 56px}
+.top{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top div{max-width:780px;margin:0 auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap}
+a{color:var(--sq-dark);font-weight:600}
+@media (prefers-color-scheme:dark){a{color:#8fb4d8}}
+.wrap{max-width:780px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:var(--serif);font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.15;margin:6px 0}
+h2{font-family:var(--serif);font-size:1.5rem;margin:0 0 8px;line-height:1.25}
+.lead{color:var(--muted);font-size:1.05rem;margin:0 0 12px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.meta span{padding:3px 12px;border-radius:99px;background:var(--sq-light);font-size:.85rem}
+section.ch{margin-top:26px;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+section.ch p{margin:8px 0}
+ul,ol{padding-left:22px;margin:8px 0}li{padding:2px 0}
+.toc{margin-top:16px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.toc ol{columns:2;column-gap:24px;margin:4px 0 0}
+@media (max-width:560px){.toc ol{columns:1}}
+.bd{display:block;width:100%;height:auto}
+.bd .sl{fill:var(--bl)}.bd .sd{fill:var(--bd)}
+.bd .pw{fill:#fff;stroke:#13202c;stroke-width:1px;paint-order:stroke}
+.bd .pb{fill:#13202c;stroke:#e8eef4;stroke-width:.7px;paint-order:stroke}
+.bd text{font-family:"Segoe UI Symbol","Noto Sans Symbols 2","DejaVu Sans",Arial,sans-serif}
+.bd .co{font-family:var(--sans);font-size:11px;fill:var(--ink);opacity:.7}
+.dg{max-width:340px;margin:12px auto}
+.dg figcaption{font-size:.9rem;color:var(--muted);margin-top:6px;text-align:center}
+.sp{display:grid;grid-template-columns:minmax(0,370px) 1fr;gap:16px;margin-top:12px;align-items:start}
+@media (max-width:680px){.sp{grid-template-columns:1fr}}
+.cap{min-height:96px;padding:12px 14px;border-left:4px solid var(--accent);background:var(--sq-light);border-radius:0 10px 10px 0}
+.cap b{font-family:var(--serif);font-size:1.15rem}.cap p{margin:4px 0 0}
+.ctl{display:flex;gap:8px;margin-top:10px;align-items:center}
+button{font:inherit;min-height:44px;min-width:48px;padding:6px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ctr{margin-left:auto;color:var(--muted);font-size:.9rem}
+.mv{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.mv button{min-height:34px;min-width:0;padding:2px 9px;font-size:.85rem}
+.mv button.on{background:var(--sq-dark);color:#fff;border-color:var(--sq-dark)}
+table{width:100%;border-collapse:collapse;font-size:.95rem;display:block;overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.warn{border-left:4px solid var(--bad);padding:8px 12px;background:var(--sq-light);border-radius:0 10px 10px 0;margin:10px 0}
+.ok{border-left:4px solid var(--done);padding:8px 12px;background:var(--sq-light);border-radius:0 10px 10px 0;margin:10px 0}
+details.q{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:8px}
+details.q summary{cursor:pointer;font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="strip" aria-hidden="true"></div>
+<nav class="top"><div><a href="index.html#debiuty">← Debiuty</a><a href="index.html#harmonogram">Harmonogram</a></div></nav>
+<main class="wrap">
+<h1>Partia włoska</h1>
+<p class="lead">Poradnik krok po kroku z ilustracjami: idea, ruchy z wyjaśnieniami, plan gry i pułapki.</p>
+<div class="meta"><span>Grasz białymi</span><span>Poziom: łatwy</span><span>ECO C50-C54</span><span>1.e4 e5 2.Sf3 Sc6 3.Gc4</span></div>
+<div class="toc"><b>Spis treści</b><ol>
+<li><a href="#idea">Idea debiutu</a></li><li><a href="#glowny">Wariant główny</a></li><li><a href="#spokojny">Wariant spokojny</a></li>
+<li><a href="#plan">Plan gry</a></li><li><a href="#czarne">Odpowiedzi czarnych</a></li><li><a href="#pulapki">Pułapki</a></li><li><a href="#quiz">Sprawdź się</a></li></ol></div>
+
+<section class="ch" id="idea"><h2>1. Idea debiutu</h2>
+<p>Partia włoska to jeden z najstarszych debiutów szachowych. Dobrze uczy podstaw: walki o centrum, szybkiego rozwoju figur i roszady. Wszystkie ruchy mają jasny cel.</p>
+<figure class="dg" data-fen="r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R" data-hl="f7" data-ar="c4-f7"></figure>
+<p>Na diagramie widać sedno: goniec c4 celuje w pole <b>f7</b>. To najsłabszy punkt czarnych na początku partii, bo broni go tylko król. Dlatego goniec na c4 jest tak groźny.</p>
+<ul><li><b>Centrum:</b> pion e4 i później d4.</li><li><b>Rozwój:</b> skoczek f3, goniec c4, potem skoczek d2 lub c3.</li><li><b>Bezpieczeństwo:</b> roszada krótka (O-O) jak najszybciej.</li></ul></section>
+
+<section class="ch" id="glowny"><h2>2. Wariant główny ruch po ruchu</h2>
+<p>Klikaj strzałki albo ruchy poniżej. Przy każdym ruchu czytaj komentarz. Podświetlone pola pokazują ostatni ruch.</p>
+<div class="stp" data-k="main"></div>
+<p>Po 10 ruchach masz centrum, rozwinięte figury i jasny plan. Do zrobienia: roszada, rozwój skoczka f3 i wieży.</p></section>
+
+<section class="ch" id="spokojny"><h2>3. Wariant spokojny: 4.d3</h2>
+<p>Jeśli nie chcesz uczyć się ostrych wariantów, wybierz <b>4.d3</b>. Mniej teorii, mniej ryzyka, a plan jest ten sam: rozwój, roszada, potem d4.</p>
+<div class="stp" data-k="quiet"></div></section>
+
+<section class="ch" id="plan"><h2>4. Plan gry krok po kroku</h2>
+<figure class="dg" data-fen="r1bqk2r/pppp1ppp/2n2n2/2b5/2BPP3/5N2/PP3PPP/RNBQK2R" data-hl="e4,d4"></figure>
+<p style="text-align:center;color:var(--muted);font-size:.9rem;margin-top:-4px">Ideał: piony e4 i d4 trzymają centrum.</p>
+<ol><li>Rozwiń skoczka f3 i gońca c4 (ruchy 2 i 3).</li><li>Zrób roszadę krótką do 6. ruchu.</li><li>Zagraj c3 i d4, żeby zająć centrum.</li><li>Wieża na e1, skoczek z b1 na d2.</li><li>Gdy figury są w grze, szukaj ataku: skoczek na g3 i h3, albo naciskaj na f7.</li></ol>
+<div class="warn"><b>Typowe błędy:</b> ruszanie tą samą figurą po raz drugi bez powodu, brak roszady, wczesny hetman (np. Hh5) i bicie na f7 bez obliczenia, czy ci się opłaci.</div></section>
+
+<section class="ch" id="czarne"><h2>5. Odpowiedzi czarnych na 3.Gc4</h2>
+<table><tr><th>Ruch czarnych</th><th>Nazwa</th><th>Co robisz</th></tr>
+<tr><td>3...Gc5</td><td>Giuoco Piano</td><td>4.c3 (główny) albo 4.d3 (spokojny). Opisane wyżej.</td></tr>
+<tr><td>3...Sf6</td><td>Obrona dwóch skoczków</td><td>Bezpiecznie: 4.d3. Ostro: 4.Sg5 z pułapką (rozdział 6).</td></tr>
+<tr><td>3...Ge7</td><td>Obrona węgierska</td><td>4.d4 i zajmij centrum.</td></tr></table></section>
+
+<section class="ch" id="pulapki"><h2>6. Pułapki</h2>
+<h3>Pułapka Legala</h3>
+<p>Czarne zagrywają ...Gg4 i ...Gh5, a ty poświęcasz hetmana za mata. <b>Uważaj:</b> jeśli grasz czarnymi, nie powtarzaj tego błędu.</p>
+<div class="stp" data-k="legal"></div>
+<h3>Smażona wątróbka (Fried Liver)</h3>
+<p>Gdy czarne zagrają 3...Sf6, możesz spróbować 4.Sg5. Jeśli odpowiedzą błędnie 5...Sxd5?, dostajesz groźny atak.</p>
+<div class="stp" data-k="fried"></div>
+<div class="ok" style="margin-top:14px"><b>Poprawna obrona czarnych:</b> 5...Sa5! Zobacz, jak wtedy wygląda gra. Masz piona więcej, ale musisz uważać na szybki rozwój czarnych.</div>
+<div class="stp" data-k="defend"></div></section>
+
+<section class="ch" id="quiz"><h2>7. Sprawdź się</h2>
+<details class="q"><summary>Które pole czarnych jest najsłabsze na początku partii włoskiej?</summary><p>Pole f7. Broni go tylko król.</p></details>
+<details class="q"><summary>Który ruch przygotowuje d4 w wariancie głównym?</summary><p>4.c3.</p></details>
+<details class="q"><summary>Czarne zagrały 3...Sf6. Jaki bezpieczny ruch zagrasz?</summary><p>4.d3, po którym czeka cię spokojna gra pozycyjna.</p></details>
+<details class="q"><summary>Czym odbijasz po 7...Gxd2+ w wariancie głównym?</summary><p>Skoczkiem z b1: 8.Sbxd2. Skoczek f3 zostaje w centrum.</p></details>
+</section>
+<p style="margin-top:20px"><a href="index.html#debiuty">← Wróć do listy debiutów</a></p>
+</main>
+<script>
+(function(){
+var DATA={"main":{"t":"Wariant główny: 4.c3","init":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","m":[{"s":"1.e4","f":"e2","t":"e4","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR","n":"1.e4: zajmujesz centrum i otwierasz drogę gońcowi f1 i hetmanowi."},{"s":"1...e5","f":"e7","t":"e5","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR","n":"1...e5: czarne robią to samo, powstaje symetryczne centrum."},{"s":"2.Sf3","f":"g1","t":"f3","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2.Sf3: rozwijasz skoczka i od razu atakujesz piona e5."},{"s":"2...Sc6","f":"b8","t":"c6","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2...Sc6: czarne bronią piona e5, rozwijając skoczka."},{"s":"3.Gc4","f":"f1","t":"c4","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3.Gc4: goniec wychodzi na aktywne pole i celuje w f7, najsłabsze pole czarnych (broni go tylko król). To jest partia włoska."},{"s":"3...Gc5","f":"f8","t":"c5","fen":"r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3...Gc5: symetryczna odpowiedź czarnych, główny wariant (Giuoco Piano, czyli „cicha gra”). Ich goniec celuje w pole f2."},{"s":"4.c3","f":"c2","t":"c3","fen":"r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R","n":"4.c3: przygotowujesz d4, żeby zbudować duże centrum z pionami e4 i d4."},{"s":"4...Sf6","f":"g8","t":"f6","fen":"r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R","n":"4...Sf6: czarne rozwijają skoczka i atakują piona e4."},{"s":"5.d4","f":"d2","t":"d4","fen":"r1bqk2r/pppp1ppp/2n2n2/2b1p3/2BPP3/2P2N2/PP3PPP/RNBQK2R","n":"5.d4: uderzasz w piona e5 i budujesz centrum. Czarne muszą zdecydować, czy bić."},{"s":"5...exd4","f":"e5","t":"d4","fen":"r1bqk2r/pppp1ppp/2n2n2/2b5/2BpP3/2P2N2/PP3PPP/RNBQK2R","n":"5...exd4: czarne zbijają piona."},{"s":"6.cxd4","f":"c3","t":"d4","fen":"r1bqk2r/pppp1ppp/2n2n2/2b5/2BPP3/5N2/PP3PPP/RNBQK2R","n":"6.cxd4: odzyskujesz piona i masz duże centrum (e4 i d4). Goniec c5 jest zaatakowany."},{"s":"6...Gb4+","f":"c5","t":"b4","fen":"r1bqk2r/pppp1ppp/2n2n2/8/1bBPP3/5N2/PP3PPP/RNBQK2R","n":"6...Gb4+: czarne dają szacha i wychodzą z ataku."},{"s":"7.Gd2","f":"c1","t":"d2","fen":"r1bqk2r/pppp1ppp/2n2n2/8/1bBPP3/5N2/PP1B1PPP/RN1QK2R","n":"7.Gd2: blokujesz szacha i godzisz się na wymianę gońców. Ostrzejsza alternatywa to 7.Sc3, ale wymaga teorii."},{"s":"7...Gxd2+","f":"b4","t":"d2","fen":"r1bqk2r/pppp1ppp/2n2n2/8/2BPP3/5N2/PP1b1PPP/RN1QK2R","n":"7...Gxd2+: czarne wymieniają gońców."},{"s":"8.Sbxd2","f":"b1","t":"d2","fen":"r1bqk2r/pppp1ppp/2n2n2/8/2BPP3/5N2/PP1N1PPP/R2QK2R","n":"8.Sbxd2: odbijasz skoczkiem z b1 (nie z f3), bo skoczek f3 pilnuje centrum i króla. Rozwinąłeś kolejną figurę."},{"s":"8...d5","f":"d7","t":"d5","fen":"r1bqk2r/ppp2ppp/2n2n2/3p4/2BPP3/5N2/PP1N1PPP/R2QK2R","n":"8...d5: ważne przełamanie czarnych: walczą o centrum i uwalniają gońca c8."},{"s":"9.exd5","f":"e4","t":"d5","fen":"r1bqk2r/ppp2ppp/2n2n2/3P4/2BP4/5N2/PP1N1PPP/R2QK2R","n":"9.exd5: zbijasz piona."},{"s":"9...Sxd5","f":"f6","t":"d5","fen":"r1bqk2r/ppp2ppp/2n5/3n4/2BP4/5N2/PP1N1PPP/R2QK2R","n":"9...Sxd5: czarne odbijają, skoczek stoi aktywnie w centrum."},{"s":"10.Hb3","f":"d1","t":"b3","fen":"r1bqk2r/ppp2ppp/2n5/3n4/2BP4/1Q3N2/PP1N1PPP/R3K2R","n":"10.Hb3: hetman staje za gońcem c4 (bateria na d5) i atakuje piona b7. Pozycja jest równa, a ty znasz plan: roszada i rozwój reszty figur."}]},"quiet":{"t":"Wariant spokojny: 4.d3","init":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","m":[{"s":"1.e4","f":"e2","t":"e4","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR","n":"1.e4: zajmujesz centrum i otwierasz drogę gońcowi f1 i hetmanowi."},{"s":"1...e5","f":"e7","t":"e5","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR","n":"1...e5: czarne robią to samo, powstaje symetryczne centrum."},{"s":"2.Sf3","f":"g1","t":"f3","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2.Sf3: rozwijasz skoczka i od razu atakujesz piona e5."},{"s":"2...Sc6","f":"b8","t":"c6","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2...Sc6: czarne bronią piona e5, rozwijając skoczka."},{"s":"3.Gc4","f":"f1","t":"c4","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3.Gc4: goniec wychodzi na aktywne pole i celuje w f7, najsłabsze pole czarnych (broni go tylko król). To jest partia włoska."},{"s":"3...Gc5","f":"f8","t":"c5","fen":"r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3...Gc5: symetryczna odpowiedź czarnych, główny wariant (Giuoco Piano, czyli „cicha gra”). Ich goniec celuje w pole f2."},{"s":"4.d3","f":"d2","t":"d3","fen":"r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R","n":"4.d3: spokojna wersja (Giuoco Pianissimo). Wzmacniasz piona e4 i otwierasz gońca c1. Mniej teorii i mniej ryzyka."},{"s":"4...Sf6","f":"g8","t":"f6","fen":"r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R","n":"4...Sf6: czarne rozwijają skoczka."},{"s":"5.O-O","f":"e1","t":"g1","fen":"r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1","n":"5.O-O: roszada krótka. Król jest bezpieczny, a wieża f1 gotowa do gry."},{"s":"5...d6","f":"d7","t":"d6","fen":"r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1","n":"5...d6: czarne wzmacniają piona e5 i otwierają gońca c8."},{"s":"6.c3","f":"c2","t":"c3","fen":"r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1","n":"6.c3: przygotowujesz d4 i dajesz gońcowi c4 pole b3 do odwrotu."},{"s":"6...a6","f":"a7","t":"a6","fen":"r1bqk2r/1pp2ppp/p1np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1","n":"6...a6: czarne szykują wycofanie gońca na a7."},{"s":"7.a4","f":"a2","t":"a4","fen":"r1bqk2r/1pp2ppp/p1np1n2/2b1p3/P1B1P3/2PP1N2/1P3PPP/RNBQ1RK1","n":"7.a4: zapobiegasz ...b5, które wypędziłoby gońca z c4."},{"s":"7...Ga7","f":"c5","t":"a7","fen":"r1bqk2r/bpp2ppp/p1np1n2/4p3/P1B1P3/2PP1N2/1P3PPP/RNBQ1RK1","n":"7...Ga7: czarny goniec schodzi z drogi pionowi d4, dalej naciska na f2."},{"s":"8.We1","f":"f1","t":"e1","fen":"r1bqk2r/bpp2ppp/p1np1n2/4p3/P1B1P3/2PP1N2/1P3PPP/RNBQR1K1","n":"8.We1: wieża wspiera piona e4, żebyś mógł zagrać d4."},{"s":"8...O-O","f":"e8","t":"g8","fen":"r1bq1rk1/bpp2ppp/p1np1n2/4p3/P1B1P3/2PP1N2/1P3PPP/RNBQR1K1","n":"8...O-O: czarne też robią roszadę."},{"s":"9.Sbd2","f":"b1","t":"d2","fen":"r1bq1rk1/bpp2ppp/p1np1n2/4p3/P1B1P3/2PP1N2/1P1N1PPP/R1BQR1K1","n":"9.Sbd2: rozwijasz ostatniego skoczka. Masz wszystkie figury w grze. Plan: Sf1-g3, h3 i d4 albo atak na skrzydle królewskim."}]},"legal":{"t":"Pułapka Legala","init":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","m":[{"s":"1.e4","f":"e2","t":"e4","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR","n":"1.e4: zajmujesz centrum i otwierasz drogę gońcowi f1 i hetmanowi."},{"s":"1...e5","f":"e7","t":"e5","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR","n":"1...e5: czarne robią to samo, powstaje symetryczne centrum."},{"s":"2.Sf3","f":"g1","t":"f3","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2.Sf3: rozwijasz skoczka i od razu atakujesz piona e5."},{"s":"2...d6","f":"d7","t":"d6","fen":"rnbqkbnr/ppp2ppp/3p4/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2...d6: czarne bronią piona e5 pionem. Solidnie, ale pasywnie."},{"s":"3.Gc4","f":"f1","t":"c4","fen":"rnbqkbnr/ppp2ppp/3p4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3.Gc4: standardowy rozwój gońca."},{"s":"3...Sc6","f":"b8","t":"c6","fen":"r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3...Sc6: czarne rozwijają skoczka."},{"s":"4.Sc3","f":"b1","t":"c3","fen":"r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R","n":"4.Sc3: rozwijasz drugiego skoczka."},{"s":"4...Gg4","f":"c8","t":"g4","fen":"r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2N2N2/PPPP1PPP/R1BQK2R","n":"4...Gg4: czarne przypinają skoczka f3 do hetmana. To początek błędu."},{"s":"5.h3","f":"h2","t":"h3","fen":"r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2N2N1P/PPPP1PP1/R1BQK2R","n":"5.h3: pytasz gońca, czy chce wymienić się na f3."},{"s":"5...Gh5","f":"g4","t":"h5","fen":"r2qkbnr/ppp2ppp/2np4/4p2b/2B1P3/2N2N1P/PPPP1PP1/R1BQK2R","n":"5...Gh5?: błąd! Czarne nie chcą wymiany, ale zostawiają piona e5 bez należytej obrony."},{"s":"6.Sxe5","f":"f3","t":"e5","fen":"r2qkbnr/ppp2ppp/2np4/4N2b/2B1P3/2N4P/PPPP1PP1/R1BQK2R","n":"6.Sxe5!: poświęcasz hetmana. Jeśli czarne go zbiją, wygrasz szybkim matem."},{"s":"6...Gxd1","f":"h5","t":"d1","fen":"r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N4P/PPPP1PP1/R1BbK2R","n":"6...Gxd1: czarne biorą hetmana."},{"s":"7.Gxf7+","f":"c4","t":"f7","fen":"r2qkbnr/ppp2Bpp/2np4/4N3/4P3/2N4P/PPPP1PP1/R1BbK2R","n":"7.Gxf7+: szach! Król musi pójść na e7."},{"s":"7...Ke7","f":"e8","t":"e7","fen":"r2q1bnr/ppp1kBpp/2np4/4N3/4P3/2N4P/PPPP1PP1/R1BbK2R","n":"7...Ke7: jedyny ruch króla."},{"s":"8.Sd5#","f":"c3","t":"d5","fen":"r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/7P/PPPP1PP1/R1BbK2R","n":"8.Sd5#: mat! Skoczki i goniec zamykają króla na e7."}]},"fried":{"t":"Pułapka: Smażona wątróbka (Fried Liver)","init":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","m":[{"s":"1.e4","f":"e2","t":"e4","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR","n":"1.e4: zajmujesz centrum i otwierasz drogę gońcowi f1 i hetmanowi."},{"s":"1...e5","f":"e7","t":"e5","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR","n":"1...e5: czarne robią to samo, powstaje symetryczne centrum."},{"s":"2.Sf3","f":"g1","t":"f3","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2.Sf3: rozwijasz skoczka i od razu atakujesz piona e5."},{"s":"2...Sc6","f":"b8","t":"c6","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2...Sc6: czarne bronią piona e5, rozwijając skoczka."},{"s":"3.Gc4","f":"f1","t":"c4","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3.Gc4: goniec wychodzi na aktywne pole i celuje w f7, najsłabsze pole czarnych (broni go tylko król). To jest partia włoska."},{"s":"3...Sf6","f":"g8","t":"f6","fen":"r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3...Sf6: obrona dwóch skoczków. Czarne ignorują zagrożenie f7 i kontratakują piona e4."},{"s":"4.Sg5","f":"f3","t":"g5","fen":"r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R","n":"4.Sg5: celujesz w f7 podwójnie (skoczek i goniec). To pułapka na nieostrożnych."},{"s":"4...d5","f":"d7","t":"d5","fen":"r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R","n":"4...d5: czarne uderzają w centrum i atakują gońca c4."},{"s":"5.exd5","f":"e4","t":"d5","fen":"r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R","n":"5.exd5: zbijasz piona. Teraz czarne mają wybór: błędne 5...Sxd5? albo poprawne 5...Sa5!"},{"s":"5...Sxd5","f":"f6","t":"d5","fen":"r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R","n":"5...Sxd5?: błąd, bo f7 jest słabo broniony."},{"s":"6.Sxf7","f":"g5","t":"f7","fen":"r1bqkb1r/ppp2Npp/2n5/3np3/2B5/8/PPPP1PPP/RNBQK2R","n":"6.Sxf7!: poświęcasz skoczka, żeby wyciągnąć króla na środek."},{"s":"6...Kxf7","f":"e8","t":"f7","fen":"r1bq1b1r/ppp2kpp/2n5/3np3/2B5/8/PPPP1PPP/RNBQK2R","n":"6...Kxf7: król bierze skoczka i opuszcza bezpieczne miejsce."},{"s":"7.Hf3+","f":"d1","t":"f3","fen":"r1bq1b1r/ppp2kpp/2n5/3np3/2B5/5Q2/PPPP1PPP/RNB1K2R","n":"7.Hf3+: szach i jednoczesny atak na skoczka d5."},{"s":"7...Ke6","f":"f7","t":"e6","fen":"r1bq1b1r/ppp3pp/2n1k3/3np3/2B5/5Q2/PPPP1PPP/RNB1K2R","n":"7...Ke6: król idzie na środek (po 7...Ke8 8.Gxd5 wygrywasz skoczka)."},{"s":"8.Sc3","f":"b1","t":"c3","fen":"r1bq1b1r/ppp3pp/2n1k3/3np3/2B5/2N2Q2/PPPP1PPP/R1B1K2R","n":"8.Sc3: masz bardzo groźny atak. Zagraj tę pułapkę, gdy czarne popełnią błąd 5...Sxd5?"}]},"defend":{"t":"Poprawna obrona czarnych: 5...Sa5","init":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","m":[{"s":"1.e4","f":"e2","t":"e4","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR","n":"1.e4: zajmujesz centrum i otwierasz drogę gońcowi f1 i hetmanowi."},{"s":"1...e5","f":"e7","t":"e5","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR","n":"1...e5: czarne robią to samo, powstaje symetryczne centrum."},{"s":"2.Sf3","f":"g1","t":"f3","fen":"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2.Sf3: rozwijasz skoczka i od razu atakujesz piona e5."},{"s":"2...Sc6","f":"b8","t":"c6","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R","n":"2...Sc6: czarne bronią piona e5, rozwijając skoczka."},{"s":"3.Gc4","f":"f1","t":"c4","fen":"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3.Gc4: goniec wychodzi na aktywne pole i celuje w f7, najsłabsze pole czarnych (broni go tylko król). To jest partia włoska."},{"s":"3...Sf6","f":"g8","t":"f6","fen":"r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R","n":"3...Sf6: obrona dwóch skoczków. Czarne ignorują zagrożenie f7 i kontratakują piona e4."},{"s":"4.Sg5","f":"f3","t":"g5","fen":"r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R","n":"4.Sg5: celujesz w f7 podwójnie (skoczek i goniec). To pułapka na nieostrożnych."},{"s":"4...d5","f":"d7","t":"d5","fen":"r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R","n":"4...d5: czarne uderzają w centrum i atakują gońca c4."},{"s":"5.exd5","f":"e4","t":"d5","fen":"r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R","n":"5.exd5: zbijasz piona. Teraz czarne mają wybór: błędne 5...Sxd5? albo poprawne 5...Sa5!"},{"s":"5...Sa5","f":"c6","t":"a5","fen":"r1bqkb1r/ppp2ppp/5n2/n2Pp1N1/2B5/8/PPPP1PPP/RNBQK2R","n":"5...Sa5!: poprawna obrona. Skoczek atakuje gońca c4 i omija pułapkę."},{"s":"6.Gb5+","f":"c4","t":"b5","fen":"r1bqkb1r/ppp2ppp/5n2/nB1Pp1N1/8/8/PPPP1PPP/RNBQK2R","n":"6.Gb5+: szach, ratujesz gońca przed zbiciem."},{"s":"6...c6","f":"c7","t":"c6","fen":"r1bqkb1r/pp3ppp/2p2n2/nB1Pp1N1/8/8/PPPP1PPP/RNBQK2R","n":"6...c6: czarne blokują szacha pionem."},{"s":"7.dxc6","f":"d5","t":"c6","fen":"r1bqkb1r/pp3ppp/2P2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R","n":"7.dxc6: bijesz piona."},{"s":"7...bxc6","f":"b7","t":"c6","fen":"r1bqkb1r/p4ppp/2p2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R","n":"7...bxc6: czarne odbijają."},{"s":"8.Ge2","f":"b5","t":"e2","fen":"r1bqkb1r/p4ppp/2p2n2/n3p1N1/8/8/PPPPBPPP/RNBQK2R","n":"8.Ge2: goniec wycofuje się przed atakiem pionka."},{"s":"8...h6","f":"h7","t":"h6","fen":"r1bqkb1r/p4pp1/2p2n1p/n3p1N1/8/8/PPPPBPPP/RNBQK2R","n":"8...h6: czarne przeganiają skoczka z g5."},{"s":"9.Sf3","f":"g5","t":"f3","fen":"r1bqkb1r/p4pp1/2p2n1p/n3p3/8/5N2/PPPPBPPP/RNBQK2R","n":"9.Sf3: skoczek wraca. Masz piona więcej, ale czarne mają przewagę w rozwoju (np. ...e4). Pozycja jest ostra."}]}};
+var PIECE={k:"♚",q:"♛",r:"♜",b:"♝",n:"♞",p:"♟\uFE0E"};
+function xy(sq){return [18+(sq.charCodeAt(0)-97)*40, 18+(8-(+sq[1]))*40];}
+function board(fen,o){
+  o=o||{};var h='<svg viewBox="0 0 356 356" class="bd" role="img" aria-label="Szachownica">';
+  var r,f;
+  for(r=0;r<8;r++)for(f=0;f<8;f++)h+='<rect class="'+((r+f)%2?'sd':'sl')+'" x="'+(18+f*40)+'" y="'+(18+r*40)+'" width="40" height="40"/>';
+  (o.hl||[]).forEach(function(s){var p=xy(s);h+='<rect x="'+p[0]+'" y="'+p[1]+'" width="40" height="40" fill="rgba(240,178,68,.62)"/>';});
+  for(f=0;f<8;f++){h+='<text class="co" x="'+(38+f*40)+'" y="347" text-anchor="middle">'+"abcdefgh"[f]+'</text>';h+='<text class="co" x="9" y="'+(42+f*40)+'" text-anchor="middle">'+(8-f)+'</text>';}
+  fen.split("/").forEach(function(row,ri){var fi=0;row.split("").forEach(function(c){
+    if(/\d/.test(c)){fi+=+c;return;}
+    var w=c===c.toUpperCase();
+    h+='<text class="'+(w?'pw':'pb')+'" x="'+(38+fi*40)+'" y="'+(38+ri*40)+'" text-anchor="middle" dy=".35em" font-size="34">'+PIECE[c.toLowerCase()]+'</text>';fi++;});});
+  (o.ar||[]).forEach(function(a){
+    var p=xy(a[0]),q=xy(a[1]),x1=p[0]+20,y1=p[1]+20,x2=q[0]+20,y2=q[1]+20,dx=x2-x1,dy=y2-y1,L=Math.sqrt(dx*dx+dy*dy),ux=dx/L,uy=dy/L,ex=x2-ux*14,ey=y2-uy*14;
+    h+='<line x1="'+x1+'" y1="'+y1+'" x2="'+ex+'" y2="'+ey+'" stroke="#c0392b" stroke-width="6" stroke-linecap="round" opacity=".85"/>';
+    h+='<polygon points="'+x2+','+y2+' '+(ex-uy*9)+','+(ey+ux*9)+' '+(ex+uy*9)+','+(ey-ux*9)+'" fill="#c0392b" opacity=".9"/>';});
+  return h+'</svg>';
+}
+document.querySelectorAll(".dg").forEach(function(el){
+  el.innerHTML=board(el.dataset.fen,{hl:el.dataset.hl?el.dataset.hl.split(","):[],ar:el.dataset.ar?[el.dataset.ar.split("-")]:[]});
+});
+function stepper(el,L){
+  var i=0,n=L.m.length;
+  el.innerHTML='<h4 style="margin:10px 0 0;font-family:var(--serif)">'+L.t+'</h4><div class="sp"><div class="sb"></div><div><div class="cap" aria-live="polite"></div><div class="ctl"><button data-a="s" aria-label="Na początek">⏮</button><button data-a="p" aria-label="Poprzedni ruch">◀</button><button data-a="n" aria-label="Następny ruch">▶</button><button data-a="e" aria-label="Na koniec">⏭</button><span class="ctr"></span></div></div></div><div class="mv"></div>';
+  var sb=el.querySelector(".sb"),cap=el.querySelector(".cap"),ctr=el.querySelector(".ctr"),mv=el.querySelector(".mv");
+  var chips="";L.m.forEach(function(m,k){chips+='<button type="button" data-i="'+(k+1)+'">'+m.s+'</button>';});mv.innerHTML=chips;
+  function draw(){
+    var m=i?L.m[i-1]:null;
+    sb.innerHTML=board(m?m.fen:L.init,{hl:m?[m.f,m.t]:[]});
+    cap.innerHTML=m?'<b>'+m.s+'</b><p>'+m.n+'</p>':'<b>Pozycja wyjściowa</b><p>Białe zaczynają. Naciśnij ▶, żeby zobaczyć pierwszy ruch.</p>';
+    ctr.textContent="Ruch "+i+" z "+n;
+    el.querySelector('[data-a="s"]').disabled=el.querySelector('[data-a="p"]').disabled=i===0;
+    el.querySelector('[data-a="n"]').disabled=el.querySelector('[data-a="e"]').disabled=i===n;
+    mv.querySelectorAll("button").forEach(function(b){b.classList.toggle("on",+b.dataset.i===i);});
+  }
+  el.addEventListener("click",function(e){
+    var b=e.target.closest?e.target.closest("button"):null;if(!b)return;
+    if(b.dataset.i)i=+b.dataset.i;
+    else if(b.dataset.a==="s")i=0;else if(b.dataset.a==="p")i=Math.max(0,i-1);
+    else if(b.dataset.a==="n")i=Math.min(n,i+1);else if(b.dataset.a==="e")i=n;
+    draw();
+  });
+  draw();
+}
+document.querySelectorAll(".stp").forEach(function(el){stepper(el,DATA[el.dataset.k]);});
+})();
+</script>
+</body>
+</html>
