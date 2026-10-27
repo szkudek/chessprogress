@@ -1,14 +1,21 @@
 {
-  "name": "Szachy: nauka i plan",
+  "id": "szachy-app",
+  "name": "Szachy: debiuty, trening, analiza",
   "short_name": "Szachy",
-  "description": "Plan nauki szachów, debiuty i timer.",
+  "description": "Nauka szachów: debiuty z poradnikami, trening na szachownicy i analiza partii ze Stockfishem.",
   "lang": "pl",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#eef1f4",
   "theme_color": "#2f4a63",
+  "categories": [
+    "education",
+    "games"
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icon-192.png",
@@ -27,6 +34,44 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Debiuty",
+      "short_name": "Debiuty",
+      "url": "./#debiuty",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Trening",
+      "short_name": "Trening",
+      "url": "./#trening",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Analiza partii",
+      "short_name": "Analiza",
+      "url": "./#analiza",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

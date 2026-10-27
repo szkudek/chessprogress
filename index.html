@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2f4a63">
-<title>Szachy: plan na pierwszy tydzień</title>
+<title>Szachy: debiuty</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -37,7 +37,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
   padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .board-strip{height:28px;background:
   conic-gradient(var(--sq-dark) 25%,var(--sq-light) 0 50%,var(--sq-dark) 0 75%,var(--sq-light) 0) 0 0/56px 56px}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px 130px}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
 header h1{font-family:var(--serif);font-size:clamp(1.7rem,6vw,2.4rem);margin:8px 0 4px;line-height:1.15}
 header p{margin:0;color:var(--muted)}
 .summary{margin:20px 0 8px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
@@ -148,6 +148,22 @@ button:disabled{opacity:.4;cursor:default}
 .warn{border-left:4px solid var(--bad)}.ok{border-left:4px solid var(--done)}
 details.q{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:8px}
 details.q summary{cursor:pointer;font-weight:600;padding:0;display:block}
+textarea{width:100%;font:inherit;font-size:.92rem;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+select{font:inherit;min-height:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+button.primary{background:var(--sq-dark);color:#fff;border-color:var(--sq-dark);font-weight:600}
+.pbar{height:6px;border-radius:3px;background:var(--sq-light);margin-top:12px;overflow:hidden}.pbar i{display:block;height:100%;width:0;background:var(--accent)}
+.anrow{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:16px;margin-top:16px;align-items:start}
+@media (max-width:680px){.anrow{grid-template-columns:1fr}}
+.anboard{display:flex;gap:8px;align-items:stretch}.anbd{flex:1;min-width:0}
+.evb{width:16px;border-radius:6px;background:#13202c;position:relative;overflow:hidden;flex:none}
+.evb i{position:absolute;left:0;right:0;bottom:0;height:50%;background:#fff;transition:height .25s}
+.graph{display:block;width:100%;height:90px;margin-top:14px;border-radius:10px;cursor:pointer;border:1px solid var(--line)}
+.gmv button.t1{border-color:#d9981e}.gmv button.t2{border-color:#e07b2a;background:rgba(224,123,42,.14)}.gmv button.t3{border-color:var(--bad);background:rgba(179,64,47,.18)}
+.gmv button sup{margin-left:2px;font-weight:700}
+.bad{color:var(--bad);font-weight:600}.good{color:var(--done);font-weight:600}
+#anSum table{display:table}
+.trb svg{touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer}
+.promo{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding:10px;border:1px solid var(--accent);border-radius:10px;background:var(--card)}
 .know{display:flex;gap:10px;align-items:center;margin-top:12px;cursor:pointer}
 .box{margin-top:18px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
 .box h2{font-family:var(--serif);margin:0 0 8px;font-size:1.15rem}
@@ -160,46 +176,12 @@ details.q summary{cursor:pointer;font-weight:600;padding:0;display:block}
 <body>
 <div class="board-strip" aria-hidden="true"></div>
 <nav class="nav" aria-label="Sekcje"><div class="nav-in">
-  <button type="button" data-v="plan" class="on">Harmonogram</button>
-  <button type="button" data-v="open">Debiuty</button>
+  <button type="button" data-v="open" class="on">♞ Debiuty</button>
+  <button type="button" data-v="tr">Trening</button>
+  <button type="button" data-v="an">Analiza</button>
 </div></nav>
 <main class="wrap">
-  <div id="view-plan">
-  <header>
-    <h1>Szachy: pierwszy tydzień</h1>
-    <p>Zaznaczaj zadania w ciągu dnia. Postęp zapisuje się w tej przeglądarce.</p>
-  </header>
-
-  <section class="summary" aria-label="Postęp tygodnia">
-    <div class="summary-top"><strong id="sumText">0 z 0 zadań</strong><span id="sumPct">0%</span></div>
-    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="barFill"></i></div>
-    <div class="dots" id="dots"></div>
-  </section>
-
-  <div id="days"></div>
-
-  <section class="rules">
-    <h2>Zasady na ten tydzień</h2>
-    <ol>
-      <li>Debiut ma pomóc zrozumieć plan, nie wkuć warianty. Wystarczy znać pierwsze 4-5 ruchów jednego debiutu.</li>
-      <li>Rozwijaj skoczki i gońce, walcz o centrum, rób wcześnie roszadę.</li>
-      <li>Po każdej partii włącz analizę komputerową i znajdź jeden błąd, którego nie powtórzysz.</li>
-      <li>Przed każdym ruchem sprawdź: co zagraża mojej figurze i co mogę zbić?</li>
-      <li>Co godzinę zrób 10 minut przerwy. Po kilku godzinach szachów koncentracja spada, a analiza i zadania wymagają świeżej głowy.</li>
-      <li>Przycisk ▶ przy zadaniu uruchamia odliczanie i otwiera Lichess. Na telefonie ustaw dla pewności także zwykły budzik, bo przeglądarka może wstrzymać stronę w tle.</li>
-      <li>Partie nierankingowe (Casual) nie zmieniają ratingu. Przy tworzeniu partii wybierz tryb „Casual", żeby spokojnie próbować debiutów i uczyć się na błędach.</li>
-      <li>Z AI zacznij od poziomu 1-2. Gdy wygrywasz mniej więcej co drugą partię, podnieś poziom o jeden.</li>
-    </ol>
-  </section>
-
-  <div class="actions">
-    <button id="reset" type="button">Wyzeruj tydzień</button>
-    <button id="theme" type="button">Zmień motyw</button>
-    <button id="install" type="button" hidden>Zainstaluj aplikację</button>
-  </div>
-  <footer>Kolejny tydzień: wróć do Claude z wynikami i dopasujemy plan.</footer>
-</div>
-  <div id="view-open" hidden>
+  <div id="view-open">
     <header>
       <h1>Debiuty</h1>
       <p>Notacja: K król, H hetman, W wieża, G goniec, S skoczek, O-O roszada krótka. Kliknij debiut, żeby go rozwinąć.</p>
@@ -247,28 +229,70 @@ details.q summary{cursor:pointer;font-weight:600;padding:0;display:block}
         <li><b>Łańcuch pionów:</b> ciąg pionów wspierających się po przekątnej.</li>
       </ul>
     </section>
+    <div class="actions">
+      <button id="theme" type="button">Zmień motyw</button>
+      <button id="install" type="button" hidden>Zainstaluj aplikację</button>
+    </div>
+  </div>
+  <div id="view-tr" hidden>
+    <header>
+      <h1>Trening</h1>
+      <p>Graj sam ze sobą albo przeciw Stockfishowi. Dotknij figury, a potem pola docelowego. Zielone znaczniki pokazują dozwolone ruchy.</p>
+    </header>
+    <div class="anrow">
+      <div>
+        <div id="trBd" class="trb"></div>
+        <div id="trPromo" class="promo" hidden><span>Promocja, wybierz figurę:</span>
+          <button type="button" data-p="q">♛ Hetman</button><button type="button" data-p="r">♜ Wieża</button><button type="button" data-p="b">♝ Goniec</button><button type="button" data-p="n">♞ Skoczek</button></div>
+      </div>
+      <div>
+        <div class="actions" style="margin-top:0">
+          <select id="trMode" aria-label="Tryb gry"><option value="self">Sam ze sobą</option><option value="w">Ze Stockfishem: grasz białymi</option><option value="b">Ze Stockfishem: grasz czarnymi</option></select>
+          <select id="trLevel" aria-label="Poziom Stockfisha"></select>
+        </div>
+        <div class="cap" aria-live="polite" style="margin-top:12px"><b id="trStatus"></b><p id="trMoves"></p><p id="trHint" class="good"></p></div>
+        <div class="actions">
+          <button id="trHintBtn" type="button">Podpowiedź</button>
+          <button id="trUndo" type="button">Cofnij ruch</button>
+          <button id="trFlip" type="button">Obróć planszę</button>
+          <button id="trNew" type="button">Nowa partia</button>
+          <button id="trAn" type="button">Analizuj partię</button>
+        </div>
+        <label class="know"><input type="checkbox" id="trHints" checked> Pokazuj możliwe ruchy</label>
+      </div>
+    </div>
+  </div>
+  <div id="view-an" hidden>
+    <header>
+      <h1>Analiza partii</h1>
+      <p>Wklej partię w formacie PGN (na Lichess: otwórz partię → „Share &amp; export" → „Copy PGN"). Silnik Stockfish 19 działa w twojej przeglądarce.</p>
+    </header>
+    <section class="box">
+      <textarea id="pgn" rows="6" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bc4 ..." aria-label="PGN partii"></textarea>
+      <div class="actions">
+        <button id="anGo" type="button" class="primary">Analizuj</button>
+        <button id="anEx" type="button">Wstaw przykład</button>
+        <select id="anDepth" aria-label="Dokładność analizy"><option value="10">Szybko</option><option value="12" selected>Normalnie</option><option value="15">Dokładnie</option></select>
+      </div>
+      <div class="pbar"><i id="anProg"></i></div>
+      <p id="anMsg" class="lead" role="status"></p>
+    </section>
+    <div id="anOut" hidden>
+      <div class="anrow">
+        <div class="anboard"><div class="evb" title="Ocena: białe na dole"><i id="evFill"></i></div><div id="anBd" class="anbd"></div></div>
+        <div>
+          <div class="cap" id="anCap" aria-live="polite"></div>
+          <div class="ctl"><button id="anS" type="button" aria-label="Na początek">⏮</button><button id="anP" type="button" aria-label="Poprzedni ruch">◀</button><button id="anN" type="button" aria-label="Następny ruch">▶</button><button id="anE" type="button" aria-label="Na koniec">⏭</button><span class="ctr" id="anCtr"></span></div>
+        </div>
+      </div>
+      <svg id="anGraph" class="graph" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Wykres oceny partii. Kliknij, żeby przejść do ruchu."></svg>
+      <div class="gmv" id="anMoves"></div>
+      <section class="box"><h2>Podsumowanie</h2><div id="anSum"></div><p class="lead">Dokładność jest przybliżona. Oceny pochodzą z lekkiej wersji Stockfisha, więc w trudnych pozycjach mogą się różnić od silnika pełnej wersji.</p></section>
+    </div>
+    <p class="lead">Silnik: Stockfish 19 (licencja GPLv3) w wersji stockfish.js.</p>
   </div>
 </main>
 
-<div id="tbar" class="tbar" hidden>
-  <div class="tfill" id="tfill"></div>
-  <div class="tin">
-    <div class="tname" id="tname"></div>
-    <div class="tclock" id="tclock">00:00</div>
-    <button id="tpause" type="button">Pauza</button>
-    <button id="tstop" type="button">Stop</button>
-  </div>
-</div>
-<div id="alarm" class="alarm" role="alertdialog" aria-live="assertive" hidden>
-  <div class="abox">
-    <h2>Czas minął</h2>
-    <p id="aname"></p>
-    <div class="actions">
-      <button id="adone" type="button">Zaznacz jako zrobione</button>
-      <button id="aclose" type="button">Zamknij</button>
-    </div>
-  </div>
-</div>
 <template id="tpl-guide"><div class="guide"><div class="meta"><span>Grasz białymi</span><span>Poziom: łatwy</span><span>ECO C50-C54</span><span>1.e4 e5 2.Sf3 Sc6 3.Gc4</span></div>
 
 
@@ -318,226 +342,7 @@ details.q summary{cursor:pointer;font-weight:600;padding:0;display:block}
 </div></template>
 <script>
 (function(){
-  var L = "https://lichess.org";
-  var AI = L+"/?any#ai";
-  var DAYS = [
-    {n:"Poniedziałek", p:"♟", f:"Zasady", m:180, t:[
-      ["Lekcje podstawowe, 45 min", L+"/learn"],
-      ["Practice: matowanie, 30 min", L+"/practice"],
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Dwie partie z AI na poziomie 1-2", AI],
-      ["Analiza obu partii z AI", ""],
-      ["Trener współrzędnych, 20 min", L+"/training/coordinate"]
-    ], tip:"Nie spiesz się z zadaniami. Zanim ruszysz, wskaż wszystkie bicia i szachy."},
-    {n:"Wtorek", p:"♞", f:"Matowanie i taktyka", m:180, t:[
-      ["Practice: matowanie hetmanem i wieżą, 30 min", L+"/practice"],
-      ["Practice: podstawowe końcówki, 20 min", L+"/practice"],
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Partia z AI na poziomie 2-3", AI],
-      ["Partia nierankingowa (Casual) z człowiekiem, tempo 15+10", L+"/"],
-      ["Analiza obu partii, 25 min", ""],
-      ["Trener współrzędnych, 10 min", L+"/training/coordinate"]
-    ]},
-    {n:"Środa", p:"♝", f:"Partie z ludźmi", m:180, t:[
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Puzzle Storm, 15 min", L+"/storm"],
-      ["Dwie partie z człowiekiem, tempo 15+10", L+"/"],
-      ["Analiza komputerowa obu partii: znajdź największy błąd", ""],
-      ["Partia z AI na poziomie 3, bez cofania ruchów", AI]
-    ], tip:"Dłuższe tempo daje czas na myślenie. Na razie ignoruj wynik."},
-    {n:"Czwartek", p:"♜", f:"Debiut białymi", m:180, t:[
-      ["Partia włoska: 1.e4 e5 2.Sf3 Sc6 3.Gc4, Opening Explorer, 30 min", L+"/opening"],
-      ["Study o debiucie, 30 min", L+"/study"],
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Dwie partie z AI białymi: zagraj debiut do końca", AI],
-      ["Partia nierankingowa z człowiekiem, tempo 15+10", L+"/"],
-      ["Analiza: w którym ruchu wyszedłeś z debiutu?", ""]
-    ]},
-    {n:"Piątek", p:"♛", f:"Debiut w praktyce", m:180, t:[
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Dwie partie nierankingowe z człowiekiem: ćwicz debiut", L+"/"],
-      ["Analiza obu partii, 30 min", ""],
-      ["Czarne: jedna odpowiedź na 1.e4, Study i Explorer, 30 min", L+"/study"],
-      ["Partia z AI czarnymi", AI]
-    ]},
-    {n:"Sobota", p:"♚", f:"Dzień partii", m:180, t:[
-      ["Puzzle Storm i zadania jednego motywu, 40 min", L+"/storm"],
-      ["Trzy partie z człowiekiem, tempo 15+10", L+"/"],
-      ["Analiza trzech partii, 40 min", ""],
-      ["Partia z AI o jeden poziom wyżej niż w środę", AI]
-    ]},
-    {n:"Niedziela", p:"♔", f:"Powtórka i luz", m:135, t:[
-      ["Powtórz błędy z tygodnia, 30 min", ""],
-      ["20 zadań taktycznych, 30 min", L+"/training"],
-      ["Trener współrzędnych, 15 min", L+"/training/coordinate"],
-      ["Luźna partia nierankingowa z człowiekiem", L+"/"],
-      ["Partia z AI na wybranym poziomie", AI]
-    ], tip:"Lżejszy dzień na odpoczynek. Zapisz jedną rzecz, której nauczyłeś się w tym tygodniu."}
-  ];
-  var KEY = "szachy-tydzien-1-v3";
-  var state = {};
-  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ state = {}; }
-  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
-
-  // JS getDay: 0=nd..6=sb ; our index: 0=pn..6=nd
-  function fmt(m){ var h=Math.floor(m/60), r=m%60; return h ? h+" h"+(r?" "+r+" min":"") : m+" min"; }
-  var todayIdx = (new Date().getDay() + 6) % 7;
-
-  var daysEl = document.getElementById("days");
-  var dotsEl = document.getElementById("dots");
-  var html = "", dots = "";
-  DAYS.forEach(function(d, i){
-    html += '<section class="day" id="day'+i+'" aria-labelledby="h'+i+'"><div class="day-head">'
-      + '<div class="piece" aria-hidden="true">'+d.p+'</div>'
-      + '<div><h2 id="h'+i+'">'+d.n+': '+d.f+'</h2><small>około '+fmt(d.m)+'</small></div>'
-      + '<span class="badge" id="b'+i+'"></span></div><ul>';
-    d.t.forEach(function(t, j){
-      var id = i+"-"+j;
-      var mm = t[0].match(/(\d+)\s*min/), mins = mm ? +mm[1] : 0;
-      html += '<li><label><input type="checkbox" data-id="'+id+'"'+(state[id]?' checked':'')+'>'
-        + '<span class="txt">'+t[0]
-        + (t[1] ? '<br><a href="'+t[1]+'" target="_blank" rel="noopener">Otwórz na Lichess</a>' : '')
-        + '</span></label>'
-        + (mins ? '<button type="button" class="start" data-day="'+i+'" data-task="'+j+'" data-mins="'+mins+'" aria-label="Start timera, '+mins+' minut">&#9654; '+mins+' min</button>' : '')
-        + '</li>';
-    });
-    html += '</ul>' + (d.tip ? '<p class="tip">'+d.tip+'</p>' : '') + '</section>';
-    dots += '<span id="dot'+i+'" title="'+d.n+'">'+d.p+'</span>';
-  });
-  daysEl.innerHTML = html;
-  dotsEl.innerHTML = dots;
-
-  function refresh(){
-    var total = 0, done = 0;
-    DAYS.forEach(function(d, i){
-      var dd = 0;
-      d.t.forEach(function(t, j){ if(state[i+"-"+j]) dd++; });
-      total += d.t.length; done += dd;
-      var full = dd === d.t.length;
-      var sec = document.getElementById("day"+i);
-      sec.classList.toggle("complete", full);
-      sec.classList.toggle("today", i === todayIdx);
-      var badge = document.getElementById("b"+i);
-      badge.textContent = full ? "Zrobione" : (i === todayIdx ? "Dziś, " : "") + dd + "/" + d.t.length;
-      var dot = document.getElementById("dot"+i);
-      dot.classList.toggle("full", full);
-      dot.classList.toggle("now", i === todayIdx);
-    });
-    var pct = total ? Math.round(done*100/total) : 0;
-    document.getElementById("sumText").textContent = done + " z " + total + " zadań";
-    document.getElementById("sumPct").textContent = pct + "%";
-    document.getElementById("barFill").style.width = pct + "%";
-    document.getElementById("bar").setAttribute("aria-valuenow", pct);
-  }
-
-  daysEl.addEventListener("change", function(e){
-    var el = e.target;
-    if(el && el.dataset && el.dataset.id){
-      if(el.checked) state[el.dataset.id] = 1; else delete state[el.dataset.id];
-      save(); refresh();
-    }
-  });
-
-  document.getElementById("reset").addEventListener("click", function(){
-    if(!confirm("Wyzerować wszystkie zaznaczenia w tym tygodniu?")) return;
-    state = {}; save();
-    document.querySelectorAll("input[type=checkbox]").forEach(function(c){ c.checked = false; });
-    refresh();
-  });
-
-  document.getElementById("theme").addEventListener("click", function(){
-    var r = document.documentElement;
-    var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var cur = r.getAttribute("data-theme") || (dark ? "dark" : "light");
-    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
-  });
-
-  refresh();
-  // ---- Timer ----
-  var TKEY = "szachy-timer", timer = null, actx = null, pendingId = null, baseTitle = document.title;
   function $(id){ return document.getElementById(id); }
-  function saveTimer(){ try { if(timer) localStorage.setItem(TKEY, JSON.stringify(timer)); else localStorage.removeItem(TKEY); } catch(e){} }
-  try { timer = JSON.parse(localStorage.getItem(TKEY) || "null"); } catch(e){ timer = null; }
-  function mmss(ms){ var s = Math.max(0, Math.ceil(ms/1000)), m = Math.floor(s/60); s = s % 60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
-  function beep(){
-    try {
-      if(!actx) return;
-      if(actx.state === "suspended") actx.resume();
-      for(var k=0;k<3;k++){
-        var o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + k*0.45;
-        o.frequency.value = 880; o.connect(g); g.connect(actx.destination);
-        g.gain.setValueAtTime(0.0001, t0);
-        g.gain.exponentialRampToValueAtTime(0.4, t0+0.02);
-        g.gain.exponentialRampToValueAtTime(0.0001, t0+0.35);
-        o.start(t0); o.stop(t0+0.4);
-      }
-    } catch(e){}
-  }
-  function drawTimer(){
-    var bar = $("tbar");
-    if(!timer){ bar.hidden = true; document.title = baseTitle; return; }
-    var left = timer.paused ? timer.left : timer.end - Date.now();
-    bar.hidden = false;
-    $("tname").textContent = timer.name;
-    $("tclock").textContent = mmss(left);
-    $("tfill").style.width = Math.max(0, Math.min(100, 100 - left*100/(timer.total*60000))) + "%";
-    $("tpause").textContent = timer.paused ? "Wznów" : "Pauza";
-    document.title = (timer.paused ? "⏸ " : "⏱ ") + mmss(left) + " · Szachy";
-  }
-  function finish(){
-    var d = timer; timer = null; saveTimer(); drawTimer();
-    pendingId = d.id; $("aname").textContent = d.name; $("alarm").hidden = false;
-    document.title = "⏰ Koniec czasu · Szachy";
-    beep();
-    try { if(navigator.vibrate) navigator.vibrate([300,150,300,150,300]); } catch(e){}
-    try { if("Notification" in window && Notification.permission === "granted") new Notification("Czas minął", {body: d.name}); } catch(e){}
-  }
-  function tick(){
-    if(!timer) return;
-    if(!timer.paused && timer.end - Date.now() <= 0){ finish(); return; }
-    drawTimer();
-  }
-  function closeAlarm(){ $("alarm").hidden = true; document.title = baseTitle; }
-  setInterval(tick, 500);
-  document.addEventListener("visibilitychange", tick);
-
-  daysEl.addEventListener("click", function(e){
-    var b = e.target.closest ? e.target.closest(".start") : null;
-    if(!b) return;
-    var i = +b.dataset.day, j = +b.dataset.task, mins = +b.dataset.mins, task = DAYS[i].t[j];
-    if(timer && !confirm("Trwa już inny timer. Zastąpić go nowym?")) return;
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if(AC && !actx) actx = new AC();
-      if(actx && actx.state === "suspended") actx.resume();
-    } catch(err){}
-    try { if("Notification" in window && Notification.permission === "default") Notification.requestPermission(); } catch(err){}
-    timer = {id:i+"-"+j, name:task[0], total:mins, end:Date.now()+mins*60000, paused:false, left:0};
-    saveTimer(); drawTimer();
-    if(task[1]) window.open(task[1], "_blank", "noopener");
-  });
-  $("tpause").addEventListener("click", function(){
-    if(!timer) return;
-    if(timer.paused){ timer.end = Date.now() + timer.left; timer.paused = false; }
-    else { timer.left = timer.end - Date.now(); timer.paused = true; }
-    saveTimer(); drawTimer();
-  });
-  $("tstop").addEventListener("click", function(){
-    if(timer && confirm("Zatrzymać timer?")){ timer = null; saveTimer(); drawTimer(); }
-  });
-  $("aclose").addEventListener("click", closeAlarm);
-  $("adone").addEventListener("click", function(){
-    if(pendingId){
-      state[pendingId] = 1; save();
-      var c = document.querySelector('input[data-id="'+pendingId+'"]');
-      if(c) c.checked = true;
-      refresh();
-    }
-    closeAlarm();
-  });
-  drawTimer();
-
-
   // ---- Debiuty ----
   var OPEN = [
     {n:"Partia włoska", c:"b", guide:1, m:"1.e4 e5 2.Sf3 Sc6 3.Gc4", lv:"łatwy",
@@ -597,8 +402,8 @@ function board(fen,o){
     h+='<text class="'+(w?'pw':'pb')+'" x="'+(38+fi*40)+'" y="'+(38+ri*40)+'" text-anchor="middle" dy=".35em" font-size="34">'+PIECE[c.toLowerCase()]+'</text>';fi++;});});
   (o.ar||[]).forEach(function(a){
     var p=xy(a[0]),q=xy(a[1]),x1=p[0]+20,y1=p[1]+20,x2=q[0]+20,y2=q[1]+20,dx=x2-x1,dy=y2-y1,L=Math.sqrt(dx*dx+dy*dy),ux=dx/L,uy=dy/L,ex=x2-ux*14,ey=y2-uy*14;
-    h+='<line x1="'+x1+'" y1="'+y1+'" x2="'+ex+'" y2="'+ey+'" stroke="#c0392b" stroke-width="6" stroke-linecap="round" opacity=".85"/>';
-    h+='<polygon points="'+x2+','+y2+' '+(ex-uy*9)+','+(ey+ux*9)+' '+(ex+uy*9)+','+(ey-ux*9)+'" fill="#c0392b" opacity=".9"/>';});
+    h+='<line x1="'+x1+'" y1="'+y1+'" x2="'+ex+'" y2="'+ey+'" stroke="'+(a[2]||"#c0392b")+'" stroke-width="6" stroke-linecap="round" opacity=".85"/>';
+    h+='<polygon points="'+x2+','+y2+' '+(ex-uy*9)+','+(ey+ux*9)+' '+(ex+uy*9)+','+(ey-ux*9)+'" fill="'+(a[2]||"#c0392b")+'" opacity=".9"/>';});
   return h+'</svg>';
 }
 function stepper(el,L){
@@ -659,19 +464,29 @@ function stepper(el,L){
     document.querySelectorAll(".chips button").forEach(function(x){ x.classList.toggle("on", x === b); });
     drawOpen();
   });
+  drawOpen();
   function showView(v){
-    $("view-plan").hidden = v !== "plan";
-    $("view-open").hidden = v !== "open";
+    $("view-open").hidden = v !== "open"; $("view-tr").hidden = v !== "tr"; $("view-an").hidden = v !== "an";
     document.querySelectorAll(".nav button").forEach(function(b){ b.classList.toggle("on", b.dataset.v === v); });
-    try { history.replaceState(null, "", v === "open" ? "#debiuty" : "#harmonogram"); } catch(e){}
+    try { history.replaceState(null, "", v === "an" ? "#analiza" : v === "tr" ? "#trening" : "#debiuty"); } catch(e){}
     window.scrollTo(0, 0);
   }
   document.querySelector(".nav").addEventListener("click", function(e){
     var b = e.target.closest ? e.target.closest("button") : null;
-    if(b) showView(b.dataset.v);
+    if(b && b.dataset.v) showView(b.dataset.v);
   });
-  drawOpen();
-  if(location.hash === "#debiuty") showView("open");
+  window.SZ = {board: board, $: $, showView: showView};
+  if(location.hash === "#analiza") showView("an");
+  if(location.hash === "#trening") showView("tr");
+
+  // ---- Motyw ----
+  $("theme").addEventListener("click", function(){
+    var r = document.documentElement;
+    var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur = r.getAttribute("data-theme") || (dark ? "dark" : "light");
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
+
   // ---- Aplikacja (PWA) ----
   var deferred = null;
   window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; $("install").hidden = false; });
@@ -684,9 +499,9 @@ function stepper(el,L){
   if("serviceWorker" in navigator && /^https?:$/.test(location.protocol)){
     window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
   }
-  var t = document.getElementById("day"+todayIdx);
-  if(t && todayIdx > 0){ setTimeout(function(){ t.scrollIntoView({block:"start"}); }, 50); }
 })();
 </script>
+<script type="module" src="trening.js"></script>
+<script type="module" src="analiza.js"></script>
 </body>
 </html>
