@@ -1,5 +1,5 @@
 // Zwiększ numer wersji przy każdej zmianie plików strony.
-var CACHE = "szachy-v7";
+var CACHE = "szachy-v9";
 var CORE = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./chess.js", "./analiza.js", "./trening.js"];
 var EXTRA = ["./stockfish-19-lite-single.js", "./stockfish-19-lite-single.wasm"];
 
